@@ -1,4 +1,5 @@
 import React from "react";
+import "./Players.scss";
 
 export default function Player(props) {
   const onClickIncrement = () => {
@@ -29,6 +30,10 @@ export default function Player(props) {
             Randomize
           </button>
         </div>
+        <div
+          className="card percentage_coloring"
+          style={{ width: props.score + "%" }}
+        />
       </div>
     </div>
   );

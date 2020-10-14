@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import AddPlayerForm from "./AddPlayer";
-import Player from "./Player";
+import AddPlayerForm from "./AddPlayerForm";
+import Player from "./Players/Player";
 
 function compare_score(a, b) {
   return b.score - a.score;
@@ -24,7 +24,6 @@ export default function Scoreboard() {
   const players_sorted = [...players].sort(compareFunction);
 
   const incrementScore = (id) => {
-    console.log("sign clicked!", id);
     const increasedScore = players.map((player) => {
       return player.id === id ? { ...player, score: player.score + 1 } : player;
     });
@@ -32,7 +31,6 @@ export default function Scoreboard() {
   };
 
   const decrementScore = (id) => {
-    console.log("sign clicked!", id);
     const decreasedScore = players.map((player) => {
       return player.id === id ? { ...player, score: player.score - 1 } : player;
     });
@@ -40,7 +38,6 @@ export default function Scoreboard() {
   };
 
   const randomizedScore = (id) => {
-    console.log("sign clicked!", id);
     const decreasedScore = players.map((player) => {
       return player.id === id
         ? { ...player, score: Math.floor(Math.random() * 100 + 1) }
@@ -56,9 +53,16 @@ export default function Scoreboard() {
     setPlayers(resetScore);
   };
 
+  const addPlayer = (name) => {
+    console.log("Let's add a new player with the name:", name);
+    const newPlayer = { id: players.length + 1, name: name, score: 0 };
+    setPlayers([...players, newPlayer]);
+    return name;
+  };
+
   return (
     <div className="Scoreboard">
-      <h1 className="card-title my-4">ScoreBoard!!!</h1>
+      <h1 className="card-title mb-4 mt-4">ScoreBoard!!!</h1>
       <p>
         <select className="card" onChange={change_sorting} value={sort_by}>
           <option value="score">Sort by score</option>
@@ -85,7 +89,7 @@ export default function Scoreboard() {
           );
         })}
       </div>
-      <AddPlayerForm />
+      <AddPlayerForm addPlayer={addPlayer} />
     </div>
   );
 }
